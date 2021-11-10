@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/pes1ug19cs413/big-data-project/spark3.py", line 2, in <module>
+    lines=pyspark.sql.streaming.DataStreamReader.json('http://localhost:6100/',pyspark.sql.types.StructType)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/streaming.py", line 619, in json
+AttributeError: 'str' object has no attribute '_set_opts'
