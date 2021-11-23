@@ -1,4 +1,3 @@
-
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark import SparkContext
@@ -19,13 +18,13 @@ lines = ssc.socketTextStream("localhost", 6100)
 # Print the first ten elements of each RDD generated in this DStream to the console
 #wordCounts.collect()
 #wordCounts.pprint()
-def readMyStream(rdd):
+def readStream(rdd):
   if not rdd.isEmpty():
     #df = spark.read.json(rdd)
     #df = df.select(F.array(F.expr("0.*")).alias("something"))
     #df.printSchema()
-    rdds=rdd.collect()
-    values=[i for j in rdds for i in list(json.loads(j).values())]
+    rddStream=rdd.collect()
+    array_of_vals=[i for rdd_val in rddStream for i in list(json.loads(rdd_val).values())]
     # print('Started the Process')
     # print('Selection of Columns')
     # df = df.select(F.expr('0.feature0').alias('Sentiment'),F.expr('0.feature1').alias('Tweet'))
@@ -33,12 +32,13 @@ def readMyStream(rdd):
     # print(df.show())
     #print(values)
     schema=StructType([
-      StructField('heading',StringType(),False),
+      StructField('subject',StringType(),False),
       StructField('content',StringType(),False),
       StructField('verdict',StringType(),False)
     ])
-    df=spark.createDataFrame((Row(**d) for d in values),schema)
+    df=spark.createDataFrame((Row(**d) for d in array_of_vals),schema)
+    df=df['content','verdict']
     df.show()
-lines.foreachRDD( lambda rdd: readMyStream(rdd) )
+lines.foreachRDD( lambda rdd: readStream(rdd) )
 ssc.start()
 ssc.awaitTermination()
