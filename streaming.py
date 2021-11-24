@@ -4,11 +4,14 @@ from pyspark import SparkContext
 from pyspark.sql.types import IntegerType, Row, StringType, StructField, StructType
 from pyspark.streaming import StreamingContext
 import json
+from pyspark.ml import Pipeline
+from pyspark.ml.feature import Tokenizer,StopWordsRemover, CountVectorizer,IDF,StringIndexer
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.linalg import Vector
+from pyspark.sql.functions import length
 sc = SparkContext("local[2]", "sentiment").getOrCreate() #no of threads to run it, cluster name 
 ssc = StreamingContext(sc, 1)
 spark = SparkSession(sc)
-
-
 #streamingContext.textFileStream(/home/PES1UG19CS493/Downloads/Project/sentiment)#file streaming 
 lines = ssc.socketTextStream("localhost", 6100)
 # words = lines.flatMap(lambda line: line.split(" "))
@@ -39,6 +42,17 @@ def readStream(rdd):
     df=spark.createDataFrame((Row(**d) for d in array_of_vals),schema)
     df=df['content','verdict']
     df.show()
+    data = df.withColumn('length',length(df['content']))
+    tokenizer = Tokenizer(inputCol="content", outputCol="token_content")
+    stopremove = StopWordsRemover(inputCol='token_content',outputCol='stop_tokens')
+    count_vec = CountVectorizer(inputCol='stop_tokens',outputCol='count_vec')
+    idf = IDF(inputCol="count_vec", outputCol="tf_idf")
+    ham_spam_to_num = StringIndexer(inputCol='verdict',outputCol='label')
+    clean_up = VectorAssembler(inputCols=['tf_idf','length'],outputCol='features')
+    data_prep_pipe = Pipeline(stages=[ham_spam_to_num,tokenizer,stopremove,count_vec,idf,clean_up])
+    cleaner = data_prep_pipe.fit(data)
+    clean_data = cleaner.transform(data)
+    clean_data.show()
 lines.foreachRDD( lambda rdd: readStream(rdd) )
 ssc.start()
 ssc.awaitTermination()
