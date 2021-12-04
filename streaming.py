@@ -1,3 +1,4 @@
+from pyspark.ml import feature
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark import SparkContext
@@ -52,7 +53,8 @@ def readStream(rdd):
     data_prep_pipe = Pipeline(stages=[ham_spam_to_num,tokenizer,stopremove,count_vec,idf,clean_up])
     cleaner = data_prep_pipe.fit(data)
     clean_data = cleaner.transform(data)
-    clean_data.show()
+    print(clean_data['features'])
+    #clean_data.show()
 lines.foreachRDD( lambda rdd: readStream(rdd) )
 ssc.start()
 ssc.awaitTermination()
