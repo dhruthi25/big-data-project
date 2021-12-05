@@ -35,7 +35,7 @@ def readStream(rdd):
     ])
     df=spark.createDataFrame((Row(**d) for d in array_of_vals),schema)
     df=df['content','verdict']
-    df.show()
+    #df.show()
     data = df.withColumn('length',length(df['content']))
     tokenizer = Tokenizer(inputCol="content", outputCol="token_content")
     stopremove = StopWordsRemover(inputCol='token_content',outputCol='stop_tokens')
@@ -50,7 +50,9 @@ def readStream(rdd):
     #print(clean_data_np_X)
     clean_data_np_X=[i.flatten() for i in clean_data_np_X]
     clean_data_np_X=numpy.array(clean_data_np_X)
-    filename='nb_model.sav'
+    #clean_data_np_X=numpy.pad(clean_data_np_X,2741-len(clean_data_np_X),'edge')
+    print(type(clean_data_np_X))
+    filename='nb_model'
     load_nbmodel=pickle.load(open(filename,'rb'))
     #test_results = load_nbmodel.predict(clean_data_np_X)
     clean_data_np_y=numpy.array(clean_data.select('label').collect()).flatten()

@@ -15,7 +15,7 @@ from pyspark.sql import Row
 from pyspark.sql.functions import col, split
 from pyspark.ml.feature import CountVectorizer,StopWordsRemover,StringIndexer
 from pyspark.ml.classification import NaiveBayes
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import GaussianNB, MultinomialNB
 sc = SparkContext("local[2]", "sentiment").getOrCreate() #no of threads to run it, cluster name 
 ssc = StreamingContext(sc, 1)
 spark = SparkSession(sc)
@@ -54,7 +54,7 @@ def readStream(rdd):
     clean_data_np_y=numpy.array(clean_data.select('label').collect()).flatten()
     clean_data_np_X=[i.flatten() for i in clean_data_np_X]
     clean_data_np_X=numpy.array(clean_data_np_X)
-    nb=GaussianNB()
+    nb=MultinomialNB()
     #print(clean_data_np_X)
     #print(clean_data_np_y)
     spam_predictor = nb.partial_fit(clean_data_np_X,clean_data_np_y,classes=numpy.unique(clean_data_np_y))
@@ -63,7 +63,6 @@ def readStream(rdd):
         filename='nb_model'
         with open(filename,'wb') as f:
             pickle.dump(spam_predictor,f)
-        print('allelujah!')
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
 results = []

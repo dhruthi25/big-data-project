@@ -1,0 +1,50 @@
+<class 'numpy.ndarray'>
+Traceback (most recent call last):
+  File "/home/pes1ug19cs413/big-data-project/NaiveBayes/testing.py", line 70, in <module>
+    ssc.awaitTermination()
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/context.py", line 199, in awaitTermination
+  File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1304, in __call__
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 111, in deco
+  File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/protocol.py", line 326, in get_return_value
+py4j.protocol.Py4JJavaError: An error occurred while calling o23.awaitTermination.
+: org.apache.spark.SparkException: An exception was raised by Python:
+Traceback (most recent call last):
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/util.py", line 68, in call
+    r = self.func(t, *rdds)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/dstream.py", line 155, in <lambda>
+    func = lambda t, rdd: old_func(rdd)
+  File "/home/pes1ug19cs413/big-data-project/NaiveBayes/testing.py", line 68, in <lambda>
+    lines.foreachRDD( lambda rdd: readStream(rdd) )
+  File "/home/pes1ug19cs413/big-data-project/NaiveBayes/testing.py", line 59, in readStream
+    accuracy=load_nbmodel.score(clean_data_np_X,clean_data_np_y)
+  File "/home/pes1ug19cs413/.local/lib/python3.8/site-packages/sklearn/base.py", line 646, in score
+    return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
+  File "/home/pes1ug19cs413/.local/lib/python3.8/site-packages/sklearn/naive_bayes.py", line 82, in predict
+    X = self._check_X(X)
+  File "/home/pes1ug19cs413/.local/lib/python3.8/site-packages/sklearn/naive_bayes.py", line 251, in _check_X
+    return self._validate_data(X, reset=False)
+  File "/home/pes1ug19cs413/.local/lib/python3.8/site-packages/sklearn/base.py", line 580, in _validate_data
+    self._check_n_features(X, reset=reset)
+  File "/home/pes1ug19cs413/.local/lib/python3.8/site-packages/sklearn/base.py", line 395, in _check_n_features
+    raise ValueError(
+ValueError: X has 2325 features, but GaussianNB is expecting 2741 features as input.
+
+	at org.apache.spark.streaming.api.python.TransformFunction.callPythonTransformFunction(PythonDStream.scala:95)
+	at org.apache.spark.streaming.api.python.TransformFunction.apply(PythonDStream.scala:78)
+	at org.apache.spark.streaming.api.python.PythonDStream$.$anonfun$callForeachRDD$1(PythonDStream.scala:179)
+	at org.apache.spark.streaming.api.python.PythonDStream$.$anonfun$callForeachRDD$1$adapted(PythonDStream.scala:179)
+	at org.apache.spark.streaming.dstream.ForEachDStream.$anonfun$generateJob$2(ForEachDStream.scala:51)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at org.apache.spark.streaming.dstream.DStream.createRDDWithLocalProperties(DStream.scala:417)
+	at org.apache.spark.streaming.dstream.ForEachDStream.$anonfun$generateJob$1(ForEachDStream.scala:51)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.util.Try$.apply(Try.scala:213)
+	at org.apache.spark.streaming.scheduler.Job.run(Job.scala:39)
+	at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler.$anonfun$run$1(JobScheduler.scala:256)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+	at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler.run(JobScheduler.scala:256)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
