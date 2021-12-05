@@ -25,28 +25,9 @@ from pyspark.sql.types import DoubleType
 sc = SparkContext("local[2]", "sentiment").getOrCreate() #no of threads to run it, cluster name 
 ssc = StreamingContext(sc, 1)
 spark = SparkSession(sc)
-#streamingContext.textFileStream(/home/PES1UG19CS493/Downloads/Project/sentiment)#file streaming 
 lines = ssc.socketTextStream("localhost", 6100)
-# words = lines.flatMap(lambda line: line.split(" "))
-# pairs = words.map(lambda word: (word, 1))
-# wordCounts = pairs.reduceByKey(lambda x, y: x + y)
 
-# Print the first ten elements of each RDD generated in this DStream to the console
-#wordCounts.collect()
-#wordCounts.pprint()
-from pyspark.ml.classification import NaiveBayes
-# Use defaults
-nb = NaiveBayes()
-def preprocessing(df):
-    # droping the used column
-    df=df.drop('_c2').drop('_c3').drop('_c4')
-    # changing the name of the colmun
-    df = df.selectExpr("v1 as class", "v2 as text")
-    # removing regrex from label column 
-    df=df.withColumn('String_Label', F.regexp_replace('class', '\\W', ''))
-    # removing the null value
-    df=df.filter(df.text != '')
-    return df
+
 
 def readStream(rdd):
   if not rdd.isEmpty():
@@ -102,7 +83,15 @@ def readStream(rdd):
     print("Precision:{}".format(metrics.precision(1.0)))
     print("Recall:{}".format(metrics.recall(1.0)))
     print("F1 Score:{}".format(metrics.fMeasure(1.0)))
+    
+    item = [metrics.accuracy,metrics.precision(1.0),metrics.recall(1.0),metrics.fMeasure(1.0)]
+    results.append(item)
+    
+    
+   
+
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
+results = []  
 ssc.start()
 ssc.awaitTermination()

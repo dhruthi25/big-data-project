@@ -96,7 +96,11 @@ def readStream(rdd):
     print("Precision:{}".format(metrics.precision(1.0)))
     print("Recall:{}".format(metrics.recall(1.0)))
     print("F1 Score:{}".format(metrics.fMeasure(1.0)))
+    
+    item = [metrics.accuracy,metrics.precision(1.0),metrics.recall(1.0),metrics.fMeasure(1.0)]
+    results.append(item)
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
+results = []
 ssc.start()
 ssc.awaitTermination()
