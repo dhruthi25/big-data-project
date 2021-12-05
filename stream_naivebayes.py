@@ -68,7 +68,7 @@ def readStream(rdd):
     ])
     df=spark.createDataFrame((Row(**d) for d in array_of_vals),schema)
     df=df['content','verdict']
-    df.show()
+    #df.show()
     data = df.withColumn('length',length(df['content']))
     tokenizer = Tokenizer(inputCol="content", outputCol="token_content")
     stopremove = StopWordsRemover(inputCol='token_content',outputCol='stop_tokens')
@@ -85,7 +85,7 @@ def readStream(rdd):
     (training,validate) = clean_data.randomSplit([0.7,0.3])
     spam_predictor = nb.fit(training)
     test_results = spam_predictor.transform(validate)
-    test_results.show()
+    #test_results.show()
     #acc_eval = MulticlassClassificationEvaluator()
     #acc = acc_eval.evaluate(test_results)
     preds_and_labels=test_results.select(['prediction','label'])
@@ -93,9 +93,9 @@ def readStream(rdd):
     metrics = MulticlassMetrics(preds_and_labels.rdd.map(tuple))
     print(metrics.confusionMatrix().toArray())
     print("Accuracy:{}".format(metrics.accuracy))
-    print("Precision:{}".format(metrics.precision(1.0)))
-    print("Recall:{}".format(metrics.recall(1.0)))
-    print("F1 Score:{}".format(metrics.fMeasure(1.0)))
+    # print("Precision:{}".format(metrics.precision(1.0)))
+    # print("Recall:{}".format(metrics.recall(1.0)))
+    # print("F1 Score:{}".format(metrics.fMeasure(1.0)))
     
     item = [metrics.accuracy,metrics.precision(1.0),metrics.recall(1.0),metrics.fMeasure(1.0)]
     results.append(item)
