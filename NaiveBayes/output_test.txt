@@ -1,11 +1,21 @@
-Recall:0.8839285714285714
-Recall:0.06837606837606838
-Recall:0.0
-Recall:0.8571428571428571
-Recall:0.8333333333333334
-Recall:0.9141630901287554
+79.0
+0.7669616519174042
+0.7926829268292683
+0.7796101949025489
+32.714285714285715
+0.3431818181818182
+0.45345345345345345
+0.39068564036222514
+70.85714285714285
+0.6666666666666666
+0.7636363636363637
+0.711864406779661
+86.42857142857143
+0.8711864406779661
+0.8184713375796179
+0.8440065681444991
 Traceback (most recent call last):
-  File "/home/pes1ug19cs413/big-data-project/NaiveBayes/testing.py", line 82, in <module>
+  File "/home/pes1ug19cs413/big-data-project/NaiveBayes/testing.py", line 84, in <module>
     ssc.awaitTermination()
   File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/context.py", line 199, in awaitTermination
   File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1303, in __call__

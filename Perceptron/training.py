@@ -1,3 +1,9 @@
+import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.linear_model import Perceptron
+from sklearn.linear_model import SGDClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
 import numpy
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -7,19 +13,21 @@ from pyspark.streaming import StreamingContext
 import json
 import pickle
 from pyspark.ml import Pipeline
-from pyspark.ml.feature import HashingTF, RegexTokenizer, Tokenizer,StopWordsRemover, CountVectorizer,IDF,StringIndexer
+from pyspark.ml.feature import RegexTokenizer, Tokenizer,StopWordsRemover, CountVectorizer,IDF,StringIndexer
 from pyspark.ml.feature import VectorAssembler
 from pyspark.sql.functions import count, length
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
 from pyspark.sql.functions import col, split
 from pyspark.ml.feature import CountVectorizer,StopWordsRemover,StringIndexer
+from pyspark.ml.classification import NaiveBayes
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
-sc = SparkContext("local[2]", "sentiment").getOrCreate() #no of threads to run it, cluster name 
+sc = SparkContext("local[2]", "spam").getOrCreate() #no of threads to run it, cluster name 
 ssc = StreamingContext(sc, 1)
 spark = SparkSession(sc)
 lines = ssc.socketTextStream("localhost", 6100)
 # Use defaults
+nb = NaiveBayes()
 count_batch_number=0
 def readStream(rdd):
   
@@ -52,13 +60,8 @@ def readStream(rdd):
     stages+=[regexTokenizer]
     stopremove = StopWordsRemover(inputCol='token',outputCol='stop_tokens')
     stages+=[stopremove]
-    hv=CountVectorizer(inputCol='stop_tokens',outputCol='token_features',minDF=2.0,vocabSize=700)
-    stages+=[hv]
-    #hashing_stage = HashingTF(inputCol="stop_tokens", outputCol="hashed_features")
-    #stages+=[hashing_stage]
-    #idf_stage = IDF(inputCol="hashed_features", outputCol="features_idf", minDocFreq=1)
-    #stages+=[idf_stage]
-    #print('PLEASE WORKING HASHINGG')
+    cv=CountVectorizer(inputCol='stop_tokens',outputCol='token_features',minDF=2.0,vocabSize=700)
+    stages+=[cv]
     indexer=StringIndexer(inputCol='verdict',outputCol='numericlabel')
     stages+=[indexer]
     vectorassemble=VectorAssembler(inputCols=['token_features','length'],outputCol="features")
@@ -67,24 +70,22 @@ def readStream(rdd):
     clean_data=pipeline.fit(data).transform(data)
     #clean_data.show()
     clean_data_np_X=numpy.array(clean_data.select('features').collect())
-    #print('step1')
     #print(clean_data_np_X)
     clean_data_np_y=numpy.array(clean_data.select('numericlabel').collect()).flatten()
-    #print('step2')
     clean_data_np_X=[i.flatten() for i in clean_data_np_X]
-    #print('step3')
     clean_data_np_X=numpy.array(clean_data_np_X)
-    #print('step4')
-    nb=MultinomialNB()
-    #print('step5')
+    #nb=MultinomialNB()
     #print(clean_data_np_X)
     #print(clean_data_np_y)
-    spam_predictor = nb.partial_fit(clean_data_np_X,clean_data_np_y,classes=numpy.unique(clean_data_np_y))
+    #clf = make_pipeline(StandardScaler(),
+                     #SGDClassifier(max_iter=1000, tol=1e-3))
+    #spam_predictor = nb.partial_fit(clean_data_np_X,clean_data_np_y,classes=numpy.unique(clean_data_np_y))
+    clf = Perceptron(eta0=5.0,max_iter=1000,tol=1e-8, random_state=0,penalty='l2',alpha=0.005)
+    p=clf.partial_fit(clean_data_np_X, clean_data_np_y,classes=numpy.unique(clean_data_np_y),sample_weight=None)
     print(count_batch_number)
-    if count_batch_number==303:
-        filename='nb_model'
+    if count_batch_number==121:
         with open(filename,'wb') as f:
-            pickle.dump(spam_predictor,f)
+            pickle.dump(p,f)
             print('dumped!')
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )

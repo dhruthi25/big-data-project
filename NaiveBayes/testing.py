@@ -7,7 +7,7 @@ from pyspark.streaming import StreamingContext
 import json
 import pickle
 from pyspark.ml import Pipeline
-from pyspark.ml.feature import RegexTokenizer,StopWordsRemover, CountVectorizer,IDF,StringIndexer
+from pyspark.ml.feature import HashingTF, RegexTokenizer,StopWordsRemover, CountVectorizer,IDF,StringIndexer
 from pyspark.ml.feature import VectorAssembler
 from pyspark.sql.functions import length
 from pyspark.sql import SparkSession
@@ -19,8 +19,6 @@ sc = SparkContext("local[2]", "sentiment").getOrCreate() #no of threads to run i
 ssc = StreamingContext(sc, 1)
 spark = SparkSession(sc)
 lines = ssc.socketTextStream("localhost", 6100)
-# Use defaults
-nb = NaiveBayes()
 
 def readStream(rdd):
   if not rdd.isEmpty():
@@ -49,8 +47,12 @@ def readStream(rdd):
     stages+=[regexTokenizer]
     stopremove = StopWordsRemover(inputCol='token',outputCol='stop_tokens')
     stages+=[stopremove]
-    cv=CountVectorizer(inputCol='stop_tokens',outputCol='token_features',minDF=2.0,vocabSize=2000)
-    stages+=[cv]
+    hv=CountVectorizer(inputCol='stop_tokens',outputCol='token_features',minDF=2.0,vocabSize=700)
+    stages+=[hv]
+    #hashing_stage = HashingTF(inputCol="stop_tokens", outputCol="hashed_features")
+    #stages+=[hashing_stage]
+    #idf_stage = IDF(inputCol="hashed_features", outputCol="features", minDocFreq=1)
+    #stages+=[idf_stage]
     indexer=StringIndexer(inputCol='verdict',outputCol='numericlabel')
     stages+=[indexer]
     vectorassemble=VectorAssembler(inputCols=['token_features','length'],outputCol="features")
@@ -72,10 +74,7 @@ def readStream(rdd):
 
     #metrics = MulticlassMetrics(preds_and_labels.rdd.map(tuple))
     #print(metrics.confusionMatrix().toArray())
-    #print(accuracy_score(actual_test_op,test_output)*100)
-    #print(precision_score(actual_test_op,test_output))
-    print("Recall:{}".format(recall_score(actual_test_op,test_output)))
-    #print("F1 Score:{}".format(f1_score(actual_test_op,test_output)))
+    print(accuracy_score(actual_test_op,test_output)*100,precision_score(actual_test_op,test_output),recall_score(actual_test_op,test_output),f1_score(actual_test_op,test_output))
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
 ssc.start()

@@ -1,6 +1,29 @@
-dumped!
+44.800000000000004
+0.448
+1.0
+0.6187845303867404
+46.800000000000004
+0.468
+1.0
+0.6376021798365124
+49.2
+0.492
+1.0
+0.6595174262734584
+44.800000000000004
+0.448
+1.0
+0.6187845303867404
+45.6
+0.456
+1.0
+0.6263736263736264
+46.6
+0.466
+1.0
+0.6357435197817191
 Traceback (most recent call last):
-  File "/home/PES1UG19CS493/big-data-project/model2/training.py", line 93, in <module>
+  File "/home/pes1ug19cs413/big-data-project/SGD/testing.py", line 78, in <module>
     ssc.awaitTermination()
   File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/context.py", line 199, in awaitTermination
   File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1303, in __call__

@@ -11,7 +11,7 @@ from pyspark.streaming import StreamingContext
 import json
 import pickle
 from pyspark.ml import Pipeline
-from pyspark.ml.feature import RegexTokenizer, Tokenizer,StopWordsRemover, CountVectorizer,IDF,StringIndexer
+from pyspark.ml.feature import RegexTokenizer,StopWordsRemover, CountVectorizer,StringIndexer
 from pyspark.ml.feature import VectorAssembler
 from pyspark.sql.functions import count, length
 from pyspark.sql import SparkSession
@@ -20,6 +20,7 @@ from pyspark.sql.functions import col, split
 from pyspark.ml.feature import CountVectorizer,StopWordsRemover,StringIndexer
 from pyspark.ml.classification import NaiveBayes
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn.linear_model import PassiveAggressiveClassifier
 sc = SparkContext("local[2]", "spam").getOrCreate() #no of threads to run it, cluster name 
 ssc = StreamingContext(sc, 1)
 spark = SparkSession(sc)
@@ -58,8 +59,12 @@ def readStream(rdd):
     stages+=[regexTokenizer]
     stopremove = StopWordsRemover(inputCol='token',outputCol='stop_tokens')
     stages+=[stopremove]
-    cv=CountVectorizer(inputCol='stop_tokens',outputCol='token_features',minDF=2.0,vocabSize=2000)
-    stages+=[cv]
+    hv=CountVectorizer(inputCol='stop_tokens',outputCol='token_features',minDF=2.0,vocabSize=700)
+    stages+=[hv]
+    #hashing_stage = HashingTF(inputCol="stop_tokens", outputCol="hashed_features")
+    #stages+=[hashing_stage]
+    #idf_stage = IDF(inputCol="hashed_features", outputCol="features", minDocFreq=1)
+    #stages+=[idf_stage]
     indexer=StringIndexer(inputCol='verdict',outputCol='numericlabel')
     stages+=[indexer]
     vectorassemble=VectorAssembler(inputCols=['token_features','length'],outputCol="features")
@@ -78,13 +83,13 @@ def readStream(rdd):
     #clf = make_pipeline(StandardScaler(),
                      #SGDClassifier(max_iter=1000, tol=1e-3))
     #spam_predictor = nb.partial_fit(clean_data_np_X,clean_data_np_y,classes=numpy.unique(clean_data_np_y))
-    clf=SGDClassifier(max_iter=1000, tol=1e-3)
-    sgd=clf.partial_fit(clean_data_np_X, clean_data_np_y,classes=numpy.unique(clean_data_np_y))
-    #print(count_batch_number)
-    if count_batch_number==30:
-        filename='sgd_model'
+    pac=PassiveAggressiveClassifier(max_iter=1000, random_state=5,tol=1e-3,C=0.5,max_iter=50)
+    pac_model=pac.partial_fit(clean_data_np_X, clean_data_np_y,classes=numpy.unique(clean_data_np_y))
+    print(count_batch_number)
+    if count_batch_number==60:
+        filename='pac_model'
         with open(filename,'wb') as f:
-            pickle.dump(sgd,f)
+            pickle.dump(pac_model,f)
             print('dumped!')
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
