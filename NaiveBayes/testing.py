@@ -71,10 +71,12 @@ def readStream(rdd):
     actual_test_op=numpy.array(clean_data.select('numericlabel').collect()).flatten()
     #accuracy=load_nbmodel.score(clean_data_np_X,actual_test_op)
     test_output=load_nbmodel.predict(clean_data_np_X)
-
-    #metrics = MulticlassMetrics(preds_and_labels.rdd.map(tuple))
-    #print(metrics.confusionMatrix().toArray())
-    print(accuracy_score(actual_test_op,test_output)*100,precision_score(actual_test_op,test_output),recall_score(actual_test_op,test_output),f1_score(actual_test_op,test_output))
+    print("Metrics")
+    print(accuracy_score(actual_test_op,test_output)*100)
+    print(precision_score(actual_test_op,test_output))
+    print(recall_score(actual_test_op,test_output))
+    print(f1_score(actual_test_op,test_output))
+    print(confusion_matrix(actual_test_op,test_output))
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
 ssc.start()

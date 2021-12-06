@@ -1,29 +1,23 @@
-44.800000000000004
-0.448
-1.0
-0.6187845303867404
-46.800000000000004
-0.468
-1.0
-0.6376021798365124
-49.2
-0.492
-1.0
-0.6595174262734584
-44.800000000000004
-0.448
-1.0
-0.6187845303867404
-45.6
-0.456
-1.0
-0.6263736263736264
-46.6
-0.466
-1.0
-0.6357435197817191
+55.2 ,
+[[276   0]
+ [224   0]]
+53.2 ,
+[[266   0]
+ [234   0]]
+50.8 ,
+[[254   0]
+ [246   0]]
+55.2 ,
+[[276   0]
+ [224   0]]
+54.400000000000006 ,
+[[272   0]
+ [228   0]]
+53.400000000000006 ,
+[[267   0]
+ [233   0]]
 Traceback (most recent call last):
-  File "/home/pes1ug19cs413/big-data-project/SGD/testing.py", line 78, in <module>
+  File "/home/pes1ug19cs413/big-data-project/SGD/testing.py", line 83, in <module>
     ssc.awaitTermination()
   File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/context.py", line 199, in awaitTermination
   File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1303, in __call__

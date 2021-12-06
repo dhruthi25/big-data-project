@@ -84,6 +84,7 @@ def readStream(rdd):
     p=clf.partial_fit(clean_data_np_X, clean_data_np_y,classes=numpy.unique(clean_data_np_y),sample_weight=None)
     print(count_batch_number)
     if count_batch_number==121:
+        filename='perc'
         with open(filename,'wb') as f:
             pickle.dump(p,f)
             print('dumped!')

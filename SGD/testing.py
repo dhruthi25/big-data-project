@@ -1,4 +1,4 @@
-import numpy 
+import numpy as np
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark import SparkContext
@@ -19,6 +19,9 @@ sc = SparkContext("local[2]", "spam").getOrCreate() #no of threads to run it, cl
 ssc = StreamingContext(sc, 1)
 spark = SparkSession(sc)
 lines = ssc.socketTextStream("localhost", 6100)
+# Use defaults
+nb = NaiveBayes()
+
 def readStream(rdd):
   if not rdd.isEmpty():
     rddStream=rdd.collect()
@@ -44,9 +47,9 @@ def readStream(rdd):
     stages=[]
     regexTokenizer=RegexTokenizer(inputCol='content',outputCol='token',pattern='\\W+')
     stages+=[regexTokenizer]
-    stopremove = StopWordsRemover(inputCol='token',outputCol='stop_tokens')
-    stages+=[stopremove]
-    cv=CountVectorizer(inputCol='stop_tokens',outputCol='token_features',minDF=2.0,vocabSize=700)
+    #stopremove = StopWordsRemover(inputCol='token',outputCol='stop_tokens')
+    #stages+=[stopremove]
+    cv=CountVectorizer(inputCol='token',outputCol='token_features',minDF=2.0,vocabSize=700)
     stages+=[cv]
     indexer=StringIndexer(inputCol='verdict',outputCol='numericlabel')
     stages+=[indexer]
@@ -54,24 +57,26 @@ def readStream(rdd):
     stages+=[vectorassemble]
     pipeline=Pipeline(stages=stages)
     clean_data=pipeline.fit(data).transform(data)
-    clean_data_np_X=numpy.array(clean_data.select('features').collect())
+    clean_data_np_X=np.array(clean_data.select('features').collect())
     #print(clean_data_np_X)
     clean_data_np_X=[i.flatten() for i in clean_data_np_X]
-    clean_data_np_X=numpy.array(clean_data_np_X)
+    clean_data_np_X=np.array(clean_data_np_X)
     #clean_data_np_X=numpy.pad(clean_data_np_X,2741-len(clean_data_np_X),'edge')
     #print(type(clean_data_np_X))
-    filename='pac_model'
+    filename='sgd_model'
     load_model=pickle.load(open(filename,'rb'))
     #test_results = load_nbmodel.predict(clean_data_np_X)
-    actual_test_op=numpy.array(clean_data.select('numericlabel').collect()).flatten()
+    actual_test_op=np.array(clean_data.select('numericlabel').collect()).flatten()
     #accuracy=load_nbmodel.score(clean_data_np_X,actual_test_op)
     test_output=load_model.predict(clean_data_np_X)
+
     #metrics = MulticlassMetrics(preds_and_labels.rdd.map(tuple))
     #print(metrics.confusionMatrix().toArray())
-    print(accuracy_score(actual_test_op,test_output)*100)
+    print(accuracy_score(actual_test_op,test_output)*100,",")
     print(precision_score(actual_test_op,test_output))
-    print(recall_score(actual_test_op,test_output))
-    print(f1_score(actual_test_op,test_output))#,labels=np.unique(test_output)
+    print("Recall:{}".format(recall_score(actual_test_op,test_output)))
+    print("F1 Score:{}".format(f1_score(actual_test_op,test_output,labels=np.unique(test_output))))
+    print(confusion_matrix(actual_test_op,test_output))
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
 ssc.start()

@@ -81,7 +81,7 @@ def readStream(rdd):
     #print(clean_data_np_y)
     spam_predictor = nb.partial_fit(clean_data_np_X,clean_data_np_y,classes=numpy.unique(clean_data_np_y))
     print(count_batch_number)
-    if count_batch_number==303:
+    if count_batch_number==60:
         filename='nb_model'
         with open(filename,'wb') as f:
             pickle.dump(spam_predictor,f)

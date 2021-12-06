@@ -75,10 +75,12 @@ def readStream(rdd):
 
     #metrics = MulticlassMetrics(preds_and_labels.rdd.map(tuple))
     #print(metrics.confusionMatrix().toArray())
+    print("Metrics for the batch")
     print(accuracy_score(actual_test_op,test_output)*100)
     print(precision_score(actual_test_op,test_output))
     print("Recall:{}".format(recall_score(actual_test_op,test_output)))
     print("F1 Score:{}".format(f1_score(actual_test_op,test_output)))
+    print(confusion_matrix(actual_test_op,test_output))
 
 lines.foreachRDD( lambda rdd: readStream(rdd) )
 ssc.start()
