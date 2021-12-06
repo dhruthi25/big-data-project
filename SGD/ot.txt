@@ -1,0 +1,142 @@
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 44240), raddr=('127.0.0.1', 36729)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 44810), raddr=('127.0.0.1', 39689)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 58264), raddr=('127.0.0.1', 46395)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/PES1UG19CS493/big-data-project/model2/testing.py:69: ResourceWarning: unclosed file <_io.BufferedReader name='sgd_model'>
+  load_model=pickle.load(open(filename,'rb'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 39440), raddr=('127.0.0.1', 41401)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+55.2
+/home/PES1UG19CS493/.local/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+0.0
+Recall:0.0
+F1 Score:0.0
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 47456), raddr=('127.0.0.1', 33909)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 52338), raddr=('127.0.0.1', 40229)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 59046), raddr=('127.0.0.1', 39175)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/PES1UG19CS493/big-data-project/model2/testing.py:69: ResourceWarning: unclosed file <_io.BufferedReader name='sgd_model'>
+  load_model=pickle.load(open(filename,'rb'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 37562), raddr=('127.0.0.1', 40393)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+53.2
+/home/PES1UG19CS493/.local/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+0.0
+Recall:0.0
+F1 Score:0.0
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 59664), raddr=('127.0.0.1', 32877)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 37794), raddr=('127.0.0.1', 44767)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55452), raddr=('127.0.0.1', 42899)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/PES1UG19CS493/big-data-project/model2/testing.py:69: ResourceWarning: unclosed file <_io.BufferedReader name='sgd_model'>
+  load_model=pickle.load(open(filename,'rb'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 60154), raddr=('127.0.0.1', 40603)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+50.8
+/home/PES1UG19CS493/.local/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+0.0
+Recall:0.0
+F1 Score:0.0
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 34184), raddr=('127.0.0.1', 34041)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 37620), raddr=('127.0.0.1', 43509)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 58994), raddr=('127.0.0.1', 35883)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/PES1UG19CS493/big-data-project/model2/testing.py:69: ResourceWarning: unclosed file <_io.BufferedReader name='sgd_model'>
+  load_model=pickle.load(open(filename,'rb'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 52848), raddr=('127.0.0.1', 40015)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+55.2
+/home/PES1UG19CS493/.local/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+0.0
+Recall:0.0
+F1 Score:0.0
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 57346), raddr=('127.0.0.1', 33861)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 32846), raddr=('127.0.0.1', 40909)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 41394), raddr=('127.0.0.1', 34033)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/PES1UG19CS493/big-data-project/model2/testing.py:69: ResourceWarning: unclosed file <_io.BufferedReader name='sgd_model'>
+  load_model=pickle.load(open(filename,'rb'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 48658), raddr=('127.0.0.1', 37547)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+54.400000000000006
+/home/PES1UG19CS493/.local/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+0.0
+Recall:0.0
+F1 Score:0.0
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 47768), raddr=('127.0.0.1', 42953)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 58946), raddr=('127.0.0.1', 32817)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 36526), raddr=('127.0.0.1', 43783)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/PES1UG19CS493/big-data-project/model2/testing.py:69: ResourceWarning: unclosed file <_io.BufferedReader name='sgd_model'>
+  load_model=pickle.load(open(filename,'rb'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 60100), raddr=('127.0.0.1', 45945)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+53.400000000000006
+/home/PES1UG19CS493/.local/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1308: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+0.0
+Recall:0.0
+F1 Score:0.0
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 33878), raddr=('127.0.0.1', 38331)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.8/socket.py:740: ResourceWarning: unclosed <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 34006), raddr=('127.0.0.1', 33483)>
+  self._sock = None
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Traceback (most recent call last):
+  File "/home/PES1UG19CS493/big-data-project/model2/testing.py", line 84, in <module>
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/streaming/context.py", line 199, in awaitTermination
+  File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1303, in __call__
+  File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1033, in send_command
+  File "/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py", line 1200, in send_command
+  File "/usr/lib/python3.8/socket.py", line 669, in readinto
+    return self._sock.recv_into(b)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 285, in signal_handler
+KeyboardInterrupt
